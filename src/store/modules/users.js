@@ -19,7 +19,7 @@ const mutations = {
 
 const actions = {
   loadUsers: async ({ dispatch, commit }) => {
-    console.log('VUE APP: ' + process.env.VUE_APP_BASE_URL)
+    // console.log('VUE APP: ' + process.env.VUE_APP_BASE_URL)
     const query = `{
       users {
         users {
