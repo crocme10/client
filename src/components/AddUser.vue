@@ -23,17 +23,6 @@
         <input class='w-3/4 bg-gray-500 hover:bg-gray-600 text-white font-bold w-full py-3 mt-4' type='submit' value='Submit' />
       </form>
     </ValidationObserver>
-
-    <div v-if='loaded'>
-      <ul class='m-6'>
-        <li v-for='user in users' :key='user.id' class='font-text'>
-          {{ user.id }} - {{ user.username }}
-        </li>
-      </ul>
-    </div>
-    <div v-else>
-      <p>Loading</p>
-    </div>
   </div>
 </template>
 

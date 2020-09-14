@@ -4,8 +4,9 @@
     <hr class='my-2 border-b-1 border-gray-900' />
     <div class='xl:w-1/2 lg:w-3/4 md:w-full mx-auto'>
       <AddUser />
-      <Users />
     </div>
+    <hr class='my-2 border-b-1 border-gray-900' />
+    <Users />
   </div>
 </template>
 
