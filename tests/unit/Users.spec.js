@@ -7,14 +7,14 @@ import axios from 'axios'
 
 jest.mock('axios')
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
+const localVue = createLocalVue()
+localVue.use(Vuex)
 
 describe('Users', () => {
-  let actions;
-  let mutations;
-  let getters;
-  let state;
+  let actions
+  let mutations
+  let getters
+  let state
 
   beforeEach(() => {
     actions = {
@@ -35,7 +35,7 @@ describe('Users', () => {
           namespaced: true,
           actions,
           // mutations: UsersStore.mutations,
-          getters: UsersStore.getters,
+          getters: UsersStore.getters
           // state: UsersStore.state
         }
       }
@@ -55,7 +55,7 @@ describe('Users', () => {
         users: {
           namespaced: true,
           actions,
-          getters: UsersStore.getters,
+          getters: UsersStore.getters
         }
       }
     })
