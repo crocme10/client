@@ -51,17 +51,19 @@ export default {
   },
   methods: {
     ...mapActions({
-      loadUsers: 'users/loadUsers'
+      loadUsers: 'users/loadUsers',
+      addUser: 'users/addUser'
     }),
     async onSubmit () {
       const success = await this.$refs.form.validate()
       if (!success) {
         return
       }
-      alert('submitted')
-      this.$nextTick(() => {
-        this.$refs.form.reset()
-      })
+      const payload = { username: this.username, email: this.email }
+      this.addUser(payload)
+      // this.$nextTick(() => {
+      //   this.$refs.form.reset()
+      // })
     }
   },
   async created () {

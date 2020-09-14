@@ -14,7 +14,8 @@ const getters = {
 }
 
 const mutations = {
-  updateUsers: (state, users) => { state.users = users }
+  updateUsers: (state, users) => { state.users = users },
+  addUser: (state, user) => { state.users.push(user) }
 }
 
 const actions = {
@@ -57,6 +58,69 @@ const actions = {
         }
         const users = response.data.data.users.users
         commit('updateUsers', users)
+      })
+    } catch (err) {
+      // console.log('Client error retrieving users: ' + err)
+      dispatch('notifications/addNotification',
+        {
+          title: 'Server Error retrieving users',
+          message: err,
+          theme: 'error',
+          timeout: 5000
+        },
+        { root: true }
+      )
+    }
+  },
+
+  addUser: async ({ dispatch, commit }, { username, email }) => {
+    const variables = {
+      user: {
+        username,
+        email
+      }
+    }
+    const query = `mutation addUser($user: UserRequestBody!) {
+      addUser(user: $user) {
+        user {
+          id,
+          username,
+          email,
+          active,
+          createdAt,
+          updatedAt
+        }
+      }
+    }`
+
+    try {
+      await axios({
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        url: ApiRoutes.GraphQL,
+        data: JSON.stringify({
+          query: query,
+          variables: variables
+        })
+      }).then(response => {
+        if (response.data.errors) {
+          const errmsg = response.data.errors[0].message + ': ' + response.data.errors[0].extensions.internal_error
+          console.log('Server error retrieving users: ' + errmsg)
+          dispatch('notifications/addNotification',
+            {
+              title: 'Server Error adding user',
+              message: errmsg,
+              theme: 'error',
+              timeout: 5000
+            },
+            { root: true }
+          )
+        }
+        const user = response.data.data.addUser.user
+        commit('addUser', user)
       })
     } catch (err) {
       // console.log('Client error retrieving users: ' + err)
