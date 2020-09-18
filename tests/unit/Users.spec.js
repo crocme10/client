@@ -12,20 +12,19 @@ localVue.use(Vuex)
 
 describe('Users', () => {
   let actions
-  let mutations
-  let getters
-  let state
+  // let mutations
+  // let state
 
   beforeEach(() => {
     actions = {
       loadUsers: jest.fn()
     }
-    mutations = {
-      updateUsers: jest.fn()
-    }
-    state = {
-      users: []
-    }
+    // mutations = {
+    //   updateUsers: jest.fn()
+    // }
+    // state = {
+    //   users: []
+    // }
   })
 
   it('is a Vue instance', async () => {
