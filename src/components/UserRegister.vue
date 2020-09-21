@@ -22,7 +22,7 @@
               <span class='text-red-500 text-xs italic'>{{ errors[0] }}</span>
             </div>
           </ValidationProvider>
-          <ValidationProvider rules='required|email' v-slot='{ errors }'>
+          <ValidationProvider rules='required' v-slot='{ errors }'>
             <div class='mb-6'>
               <label class='block text-gray-700 text-sm font-bold mb-2' for='email'>
                 Password
@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'
+import { required, email } from 'vee-validate/dist/rules'
 
 export default {
   name: 'UserRegister',
@@ -78,7 +79,7 @@ export default {
       const payload = { username: this.username, email: this.email, password: this.password }
       this.$store.dispatch('auth/register', payload).then(
         data => {
-          this.message = data.message
+          this.message = 'User Registered Successfully!'
           this.successful = true
         },
         error => {
@@ -88,6 +89,19 @@ export default {
         }
       )
     }
+  },
+  async created () {
+    extend('required', required)
+    extend('email', email)
   }
 }
 </script>
+
+<style>
+  .alert-success {
+    @apply relative px-3 py-3 mb-4 border rounded text-gray-800 border-gray-800 bg-green-300 text-center;
+  }
+  .alert-danger {
+    @apply relative px-3 py-3 mb-4 border rounded text-gray-800 border-gray-800 bg-green-300 text-center;
+  }
+</style>

@@ -1,21 +1,13 @@
 <template>
-  <div class="container">
-    <header class="jumbotron">
-      <h3>
-        <strong>{{currentUser.username}}</strong> Profile
-      </h3>
-    </header>
-    <p>
-      <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
-    </p>
-    <p>
+  <div class='mt-8 mx-auto md:w-1/2 lg:w-1/3 xl:w-1/4'>
+    <h3 class='font-header text-xl text-center'> {{currentUser.user.username}} </h3>
+    <p class='mt-8'>
       <strong>Id:</strong>
-      {{currentUser.id}}
+      {{currentUser.user.id}}
     </p>
     <p>
       <strong>Email:</strong>
-      {{currentUser.email}}
+      {{currentUser.user.email}}
     </p>
     <strong>Authorities:</strong>
     <ul>

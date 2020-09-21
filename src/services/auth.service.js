@@ -1,23 +1,45 @@
 import axios from 'axios'
 import ApiRoutes from '@/api/apiRoutes'
 
-// TODO Change API URL, login
-const API_URL = 'http://localhost:8080/api/auth/'
-
 class AuthService {
   login (user) {
-    return axios
-      .post(API_URL + 'signin', {
+    const variables = {
+      credentials: {
         username: user.username,
         password: user.password
-      })
-      .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem('user', JSON.stringify(response.data))
-        }
+      }
+    }
 
-        return response.data
+    const query = `mutation loginUser($credentials: CredentialsRequestBody!) {
+      loginUser(credentials: $credentials) {
+        user {
+          id,
+          username,
+          email
+        },
+        token
+      }
+    }`
+
+    return axios({
+      method: 'post',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      url: ApiRoutes.GraphQL,
+      data: JSON.stringify({
+        query: query,
+        variables: variables
       })
+    }).then(response => {
+      console.log(response)
+      if (response.data.data.loginUser) {
+        localStorage.setItem('user', JSON.stringify(response.data.data.loginUser))
+      }
+
+      return response.data
+    })
   }
 
   logout () {
