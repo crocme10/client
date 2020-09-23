@@ -25,7 +25,7 @@ const routes = [
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import(/* webpackChunkName: "about" */ '../components/UserProfile.vue')
+    component: () => import(/* webpackChunkName: "about" */ '@/components/UserProfile.vue')
   },
   {
     path: '/about',
@@ -33,7 +33,13 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../components/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '@/components/About.vue')
+  },
+  {
+    path: '/user',
+    name: 'user',
+    // lazy-loaded
+    component: () => import('@/components/UserBoard.vue')
   }
 ]
 
@@ -44,7 +50,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/']
+  const publicPages = ['/login', '/register', '/', '/about']
   const authRequired = !publicPages.includes(to.path)
   // TODO That should be asked from the service?
   const loggedIn = localStorage.getItem('user')

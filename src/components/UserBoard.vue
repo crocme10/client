@@ -6,17 +6,17 @@
 import UserService from '@/services/user.service'
 
 export default {
-  name: 'Home',
+  name: 'UserBoard',
   data () {
     return {
       content: ''
     }
   },
   mounted () {
-    UserService.getPublicContent().then(
+    UserService.getUserContent().then(
       response => {
         console.log('response: ' + response)
-        this.content = response.data.data.contentForAll.content
+        this.content = response.data.data.contentForUser.content
       },
       error => {
         this.content =

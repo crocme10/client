@@ -21,7 +21,7 @@
             <span class='text-red-500 text-xs italic'>{{ errors[0] }}</span>
           </div>
         </ValidationProvider>
-        <input class='w-3/4 bg-gray-500 hover:bg-gray-600 text-white font-bold w-full py-3 mt-4' type='submit' value='Signup' />
+        <input class='w-3/4 bg-gray-500 hover:bg-gray-600 text-white font-bold w-full py-3 mt-4 cursor-pointer' type='submit' value='Signup' />
       </form>
     </ValidationObserver>
     <div v-if="message" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">{{message}}</div>
@@ -31,6 +31,8 @@
 <script>
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'
 import { required } from 'vee-validate/dist/rules'
+import { mapGetters } from 'vuex'
+import AuthService from '@/services/auth.service'
 
 export default {
   name: 'UserLogin',
@@ -47,13 +49,15 @@ export default {
     ValidationProvider
   },
   computed: {
-    loggedIn () {
-      return this.$store.state.auth.status.loggedIn
-    }
+    ...mapGetters({
+      loggedIn: 'auth/loggedIn'
+    })
   },
   mounted () {
     if (this.loggedIn) {
       this.$router.push('/profile')
+    } else {
+      AuthService.logout()
     }
   },
   methods: {

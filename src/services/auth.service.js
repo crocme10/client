@@ -15,7 +15,8 @@ class AuthService {
         user {
           id,
           username,
-          email
+          email,
+          roles
         },
         token
       }
@@ -33,12 +34,13 @@ class AuthService {
         variables: variables
       })
     }).then(response => {
-      console.log(response)
       if (response.data.data.loginUser) {
         localStorage.setItem('user', JSON.stringify(response.data.data.loginUser))
+        return response.data.data.loginUser
+      } else {
+        // TODO
+        return response.data
       }
-
-      return response.data
     })
   }
 

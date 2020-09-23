@@ -6,6 +6,13 @@ const initialState = user
   ? { status: { loggedIn: true }, user }
   : { status: { loggedIn: false }, user: null }
 
+// const initialState = { status: { loggedIn: false }, user: null }
+
+const getters = {
+  user: state => state.user,
+  loggedIn: state => state.status.loggedIn
+}
+
 const mutations = {
   loginSuccess (state, user) {
     state.status.loggedIn = true
@@ -31,7 +38,8 @@ const actions = {
   login ({ commit }, user) {
     return AuthService.login(user).then(
       user => {
-        commit('loginSuccess', user)
+        console.log(user)
+        commit('loginSuccess', user.user)
         return Promise.resolve(user)
       },
       error => {
@@ -80,6 +88,7 @@ const actions = {
 export default {
   namespaced: true,
   state: initialState,
+  getters,
   actions,
   mutations
 }

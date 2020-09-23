@@ -31,7 +31,7 @@
               <span class='text-red-500 text-xs italic'>{{ errors[0] }}</span>
             </div>
           </ValidationProvider>
-          <input class='bg-gray-500 hover:bg-gray-600 text-white font-bold w-full py-3 mt-4' type='submit' value='Signup' />
+          <input class='bg-gray-500 hover:bg-gray-600 text-white font-bold w-full py-3 mt-4 cursor-pointer' type='submit' value='Signup' />
         </div> <!-- !successful -->
       </form>
     </ValidationObserver>
@@ -102,6 +102,6 @@ export default {
     @apply relative px-3 py-3 mb-4 border rounded text-gray-800 border-gray-800 bg-green-300 text-center;
   }
   .alert-danger {
-    @apply relative px-3 py-3 mb-4 border rounded text-gray-800 border-gray-800 bg-green-300 text-center;
+    @apply relative px-3 py-3 mb-4 border rounded text-gray-800 border-gray-800 bg-red-300 text-center;
   }
 </style>

@@ -1,23 +1,61 @@
 import axios from 'axios'
-import authHeader from '@/services/auth-header'
-
-const API_URL = 'http://localhost:8080/api/test/'
+import authHeader from './auth-header'
+import ApiRoutes from '@/api/apiRoutes'
 
 class UserService {
   getPublicContent () {
-    return axios.get(API_URL + 'all')
+    const query = `query {
+      contentForAll {
+        content
+      }
+    }`
+
+    return axios({
+      method: 'post',
+      headers: authHeader(),
+      url: ApiRoutes.GraphQL,
+      data: JSON.stringify({
+        query: query
+      })
+    })
   }
 
-  getUserBoard () {
-    return axios.get(API_URL + 'user', { headers: authHeader() })
+  getUserContent () {
+    const query = `query {
+      contentForUser {
+        content
+      }
+    }`
+
+    return axios({
+      method: 'post',
+      headers: authHeader(),
+      url: ApiRoutes.GraphQL,
+      data: JSON.stringify({
+        query: query
+      })
+    })
   }
 
   getModeratorBoard () {
-    return axios.get(API_URL + 'mod', { headers: authHeader() })
+    return Promise.resolve({ data: 'this is moderator board' })
   }
 
-  getAdminBoard () {
-    return axios.get(API_URL + 'admin', { headers: authHeader() })
+  getAdminContent () {
+    const query = `query {
+      contentForAdmin {
+        content
+      }
+    }`
+
+    return axios({
+      method: 'post',
+      headers: authHeader(),
+      url: ApiRoutes.GraphQL,
+      data: JSON.stringify({
+        query: query
+      })
+    })
   }
 }
 
